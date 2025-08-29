@@ -863,7 +863,12 @@ local function createsort(order, text, sort)
 	return CreatedSort
 end
  
+createsort(1, "Newest First", "newestfirst")
+createsort(2, "Oldest First", "oldestfirst")
 createsort(3, "Alphabetically First", "alphabeticfirst")
+createsort(4, "Alphabetically Last", "alphabeticlast")
+createsort(5, "Highest Price", "highestprice")
+createsort(6, "Lowest Price", "lowestprice")
 
 local function createsort(order, text, sort)
     local bt = Instance.new("TextButton")
