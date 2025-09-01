@@ -570,7 +570,7 @@ local function addEmote(name, id, price, date)
         sort = {}
     })
 end
-
+addEmote("WHAT HAPPENED BRO?", 137987340488409, 39, "Sep 01, 2025")
 addEmote("PARROT PARTY DANCE", 121067808279598, 39, "Aug 08, 2025")
 addEmote("Dance n' Prance", 99031916674986, 39, "Aug 08, 2025")
 addEmote("R15 Death (Accurate)", 114899970878842, 39, "Aug 08, 2025")
