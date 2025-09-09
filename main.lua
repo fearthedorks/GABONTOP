@@ -570,6 +570,12 @@ local function addEmote(name, id, price, date)
         sort = {}
     })
 end
+
+addEmote("kneeling gift (MATCHING EMOTE!)", 114993593798733, 39, "Sep 09, 2025")
+addEmote("homero bailesito (MEME)", 95626496862816, 39, "Sep 09, 2025")
+addEmote("mm2 dead troll", 95877955786500, 39, "Sep 09, 2025")
+addEmote("flying superhero", 134861929761233, 39, "Sep 09, 2025")
+addEmote("metro", 132033355408043, 39, "Sep 09, 2025")
 addEmote("SCENE PROFILE POSE (Dynamic Emotes)", 79650895295716, 39, "Sep 01, 2025");
 addEmote("SCENE PROFILE POSE (LoveGhouls)", 127012526786330, 39, "Sep 01, 2025");
 addEmote("WHAT HAPPENED BRO?", 137987340488409, 39, "Sep 01, 2025")
