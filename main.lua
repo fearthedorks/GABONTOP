@@ -1,3 +1,119 @@
+--// Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TextChatService = game:GetService("TextChatService")
+local player = Players.LocalPlayer
+
+--// MANUAL KEY (change this anytime you want)
+local VALID_KEY = "1ZGONTOP"
+
+----------------------------------------------------------
+--// KEY SYSTEM GUI
+----------------------------------------------------------
+local keyGui = Instance.new("ScreenGui")
+keyGui.Name = "KeySystem"
+keyGui.ResetOnSpawn = false
+keyGui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 360, 0, 200)
+frame.Position = UDim2.new(0.5, -180, 0.5, -100)
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = keyGui
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+
+local stroke = Instance.new("UIStroke")
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(60, 60, 60)
+stroke.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -20, 0, 30)
+title.Position = UDim2.new(0, 10, 0, 8)
+title.Text = "🔐 Gab on Top - Key Access"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = frame
+
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 24, 0, 24)
+closeButton.Position = UDim2.new(1, -28, 0, 6)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.new(1, 1, 1)
+closeButton.Font = Enum.Font.GothamBold
+closeButton.TextSize = 14
+closeButton.Parent = frame
+Instance.new("UICorner", closeButton).CornerRadius = UDim.new(0, 6)
+
+closeButton.MouseButton1Click:Connect(function()
+	keyGui:Destroy()
+end)
+
+local keyBox = Instance.new("TextBox")
+keyBox.Size = UDim2.new(1, -40, 0, 40)
+keyBox.Position = UDim2.new(0, 20, 0, 60)
+keyBox.PlaceholderText = "Enter your access key..."
+keyBox.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+keyBox.TextColor3 = Color3.new(1, 1, 1)
+keyBox.Font = Enum.Font.Gotham
+keyBox.TextSize = 16
+keyBox.ClearTextOnFocus = true
+keyBox.Parent = frame
+Instance.new("UICorner", keyBox).CornerRadius = UDim.new(0, 8)
+
+local enterButton = Instance.new("TextButton")
+enterButton.Size = UDim2.new(1, -40, 0, 40)
+enterButton.Position = UDim2.new(0, 20, 0, 110)
+enterButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+enterButton.Text = "Enter Key"
+enterButton.TextColor3 = Color3.new(1, 1, 1)
+enterButton.Font = Enum.Font.GothamBold
+enterButton.TextSize = 16
+enterButton.Parent = frame
+Instance.new("UICorner", enterButton).CornerRadius = UDim.new(0, 8)
+
+-- Hover Effects
+enterButton.MouseEnter:Connect(function()
+	enterButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+end)
+enterButton.MouseLeave:Connect(function()
+	enterButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+end)
+enterButton.MouseButton1Down:Connect(function()
+	enterButton.BackgroundColor3 = Color3.fromRGB(0, 120, 220)
+end)
+enterButton.MouseButton1Up:Connect(function()
+	enterButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+end)
+
+local feedback = Instance.new("TextLabel")
+feedback.Size = UDim2.new(1, -40, 0, 25)
+feedback.Position = UDim2.new(0, 20, 0, 160)
+feedback.BackgroundTransparency = 1
+feedback.Text = ""
+feedback.Font = Enum.Font.Gotham
+feedback.TextSize = 14
+feedback.TextColor3 = Color3.fromRGB(255, 80, 80)
+feedback.TextWrapped = true
+feedback.Parent = frame
+
+--// Function to validate key
+local function validateKey(inputKey)
+	if inputKey == VALID_KEY then
+		feedback.TextColor3 = Color3.fromRGB(0, 255, 100)
+		feedback.Text = "✅ Access Granted! Welcome back, Gab!"
+		task.wait(1)
+		keyGui:Destroy()
+		task.wait(0.5)
+
+		
+
 local IsStudio = false
 
 local ContextActionService = game:GetService("ContextActionService")
@@ -1393,3 +1509,22 @@ Notify({
 -- Wait before showing the main GUI
 wait(5)
 ScreenGui.Parent = CoreGui
+
+
+
+
+	else
+		feedback.TextColor3 = Color3.fromRGB(255, 80, 80)
+		feedback.Text = "❌ Invalid key! Please try again."
+	end
+end
+
+enterButton.MouseButton1Click:Connect(function()
+	local enteredKey = keyBox.Text:match("^%s*(.-)%s*$")
+	if enteredKey == "" then
+		feedback.Text = "⚠️ Please enter your key."
+		feedback.TextColor3 = Color3.fromRGB(255, 200, 50)
+	else
+		validateKey(enteredKey)
+	end
+end)
